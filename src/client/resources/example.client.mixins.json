@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "package": "make.example.mixin",
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "overwrites": {
+    "requireAnnotations": true
+  }
+}

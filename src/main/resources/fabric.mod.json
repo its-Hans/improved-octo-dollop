@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "id": "example",
+  "name": "Example",
+  "version": "${version}",
+  "description": "Ciallo～ (∠・ω< )⌒★",
+  "authors": [
+    "Me!"
+  ],
+  "icon": "assets/example/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      {
+        "value": "make.example.Client",
+        "adapter": "kotlin"
+      }
+    ]
+  },
+  "mixins": [
+    "example.client.mixins.json"
+  ],
+  "depends": {
+    "minecraft": "~1.21.4",
+    "fabricloader": ">=${loader}",
+    "fabric-api": ">=${fabric}",
+    "fabric-language-kotlin": ">=${fk}"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
+}

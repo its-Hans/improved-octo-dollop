@@ -1,29 +1,47 @@
 plugins {
+	id 'fabric-loom' version "${loom_version}"
 	id 'org.jetbrains.kotlin.jvm' version "${kotlin_version}"
 }
 
 version project_version
 group project_group
 
-allprojects {
-	repositories {
-		maven {
-			url 'https://maven.aliyun.com/repository/public/'
-		}
+dependencies {
+	minecraft "com.mojang:minecraft:${minecraft_version}"
+	mappings "net.fabricmc:yarn:${yarn_mappings}:v2"
+	modImplementation "net.fabricmc:fabric-loader:${loader_version}"
 
-		mavenLocal()
-		mavenCentral()
+	modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
+	modImplementation "net.fabricmc:fabric-language-kotlin:${fabric_kotlin_version}"
+}
+
+loom {
+	splitEnvironmentSourceSets()
+
+	mixin {
+		useLegacyMixinAp = false
 	}
 }
 
-def propIn = [
-		name: project_name,
-		version: project_version
-]
-
 jar {
-	inputs.properties(propIn)
+	inputs.property('name', name)
+
 	from('LICENSE') {
 		rename { "${it}_${inputs.properties.name}" }
+	}
+}
+
+processResources {
+	inputs.properties(
+			'version': version,
+			'loader': loader_version,
+			'fabric': fabric_version,
+			'fk': fabric_kotlin_version
+	)
+
+	filesMatching('fabric.mod.json') {
+		expand(inputs.properties) {
+			escapeBackslash = true
+		}
 	}
 }
